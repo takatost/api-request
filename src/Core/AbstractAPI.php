@@ -21,20 +21,6 @@ abstract class AbstractAPI
      */
     protected $http;
 
-    /**
-     * @var string
-     */
-    protected $apiPrefix;
-
-    /**
-     * @var array
-     */
-    protected $apiGatewayConfig = [
-        'app_id'           => '',
-        'app_secret'       => '',
-        'oauth_url_prefix' => ''
-    ];
-
     const GET   = 'get';
     const POST  = 'post';
     const PATCH = 'patch';
@@ -42,36 +28,12 @@ abstract class AbstractAPI
     const JSON  = 'json';
 
     /**
-     * @param string $prefix
-     * @return $this
-     * @author         JohnWang <takato@vip.qq.com>
-     */
-    public function setApiPrefix($prefix)
-    {
-        $this->apiPrefix = $prefix;
-
-        return $this;
-    }
-
-    /**
      * @return string
      * @author         JohnWang <takato@vip.qq.com>
      */
     public function getApiPrefix()
     {
-        return $this->apiPrefix;
-    }
-
-    /**
-     * @param $config
-     * @return $this
-     * @author         JohnWang <takato@vip.qq.com>
-     */
-    public function setApiGatewayConfig($config)
-    {
-        $this->apiGatewayConfig = $config;
-
-        return $this;
+        return '';
     }
 
     /**
@@ -80,7 +42,10 @@ abstract class AbstractAPI
      */
     public function getApiGatewayConfig()
     {
-        return $this->apiGatewayConfig;
+        return [
+            'app_id'           => '',
+            'app_secret'       => ''
+        ];
     }
 
     /**
@@ -163,10 +128,11 @@ abstract class AbstractAPI
         return function (callable $handler) {
             return function (RequestInterface $request, array $options) use ($handler) {
                 $uri = $request->getUri();
-                $client = new Client($this->apiGatewayConfig['app_id'], $this->apiGatewayConfig['app_secret']);
+                $apiGatewayConfig = $this->getApiGatewayConfig();
+                $client = new Client($apiGatewayConfig['app_id'], $apiGatewayConfig['app_secret']);
                 $token = new Token($client);
                 $params = [
-                    'access_token' => $token->getToken($this->apiGatewayConfig['oauth_url_prefix'])
+                    'access_token' => $token->getToken($this->getApiPrefix())
                 ];
                 // 排序
                 ksort($params, SORT_STRING);
