@@ -40,13 +40,7 @@ abstract class AbstractAPI
      * @return array
      * @author         JohnWang <takato@vip.qq.com>
      */
-    public function getApiGatewayConfig()
-    {
-        return [
-            'app_id'     => config('micro_service.app_id'),
-            'app_secret' => config('micro_service.app_secret')
-        ];
-    }
+    public abstract function getApiGatewayConfig();
 
     /**
      * Return the http instance.
