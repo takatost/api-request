@@ -33,7 +33,7 @@ abstract class AbstractAPI
      */
     public function getApiPrefix()
     {
-        return '';
+        return config('micro_service.prefix');
     }
 
     /**
@@ -43,8 +43,8 @@ abstract class AbstractAPI
     public function getApiGatewayConfig()
     {
         return [
-            'app_id'           => '',
-            'app_secret'       => ''
+            'app_id'     => config('micro_service.app_id'),
+            'app_secret' => config('micro_service.app_secret')
         ];
     }
 
