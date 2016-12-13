@@ -20,5 +20,18 @@
     ],
     "autoload": {
       "classmap":["src/"]
-    }
+    },
+    "repositories": [
+      {
+        "type": "composer",
+        "url": "http://packagist.dev.vstore.vchangyi.com/repo/private/"
+      },
+      {
+        "type": "composer",
+        "url": "https://packagist.phpcomposer.com"
+      },
+      {
+        "packagist": false
+      }
+    ]
 }
