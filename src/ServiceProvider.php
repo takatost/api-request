@@ -1,4 +1,4 @@
-<?php namespace Jhk\Document;
+<?php namespace Jhk\ApiRequests;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 

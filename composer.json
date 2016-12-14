@@ -21,6 +21,11 @@
     "autoload": {
       "classmap":["src/"]
     },
+    "prefer-stable": true,
+    "config": {
+      "preferred-install": "dist",
+      "secure-http": false
+    },
     "repositories": [
       {
         "type": "composer",
