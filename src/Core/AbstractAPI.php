@@ -31,7 +31,13 @@ abstract class AbstractAPI
      * @return string
      * @author         JohnWang <takato@vip.qq.com>
      */
-    public function getApiPrefix()
+    abstract public function getApiPrefix();
+
+    /**
+     * @return string
+     * @author         JohnWang <takato@vip.qq.com>
+     */
+    public function getApiGatewayPrefix()
     {
         return config('micro_service.prefix');
     }
@@ -84,7 +90,7 @@ abstract class AbstractAPI
     {
         $http = $this->getHttp();
 
-        $args[0] = $this->apiPrefix . $args[0];
+        $args[0] = $this->getApiPrefix() . $args[0];
 
         try {
             $contents = $http->parseJSON(call_user_func_array([$http, $method], $args));
@@ -126,7 +132,7 @@ abstract class AbstractAPI
                 $client = new Client($apiGatewayConfig['app_id'], $apiGatewayConfig['app_secret']);
                 $token = new Token($client);
                 $params = [
-                    'access_token' => $token->getToken($this->getApiPrefix())
+                    'access_token' => $token->getToken($this->getApiGatewayPrefix())
                 ];
                 // 排序
                 ksort($params, SORT_STRING);
