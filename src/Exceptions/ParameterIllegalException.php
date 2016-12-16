@@ -3,7 +3,7 @@
  * 参数不合法
  * Class HttpException.
  */
-class ParameterIllegalException extends \GuzzleHttp\Exception\BadResponseException
+class ParameterIllegalException extends HttpException
 {
 
 }

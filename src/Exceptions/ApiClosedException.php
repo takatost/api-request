@@ -3,7 +3,7 @@
  * 接口关闭
  * Class HttpException.
  */
-class ApiClosedException extends \GuzzleHttp\Exception\BadResponseException
+class ApiClosedException extends HttpException
 {
 
 }

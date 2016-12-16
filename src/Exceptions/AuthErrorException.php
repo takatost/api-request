@@ -3,7 +3,7 @@
  * 授权错误
  * Class HttpException.
  */
-class AuthErrorException extends \GuzzleHttp\Exception\BadResponseException
+class AuthErrorException extends HttpException
 {
 
 }

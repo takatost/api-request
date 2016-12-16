@@ -3,7 +3,7 @@
  * 请求失败
  * Class HttpException.
  */
-class RequestErrorException extends \GuzzleHttp\Exception\BadResponseException
+class RequestErrorException extends HttpException
 {
 
 }

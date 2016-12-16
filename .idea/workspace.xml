@@ -41,24 +41,14 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AbstractAPI.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AbstractAPI.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Core/AbstractAPI.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="121" column="13" lean-forward="true" selection-start-line="121" selection-start-column="13" selection-end-line="121" selection-end-column="13" />
+            <state relative-caret-position="510">
+              <caret line="122" column="29" lean-forward="false" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
               <folding>
                 <element signature="e#39#85#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RequestErrorException.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Exceptions/RequestErrorException.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -67,7 +57,57 @@
         <entry file="file://$PROJECT_DIR$/src/Exceptions/ApiClosedException.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+              <caret line="5" column="46" lean-forward="false" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthErrorException.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Exceptions/AuthErrorException.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="46" lean-forward="false" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParameterIllegalException.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Exceptions/ParameterIllegalException.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RequestErrorException.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Exceptions/RequestErrorException.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="49" lean-forward="false" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResourceNotFoundException.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Exceptions/ResourceNotFoundException.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HttpException.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Exceptions/HttpException.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -96,11 +136,12 @@
         <option value="$PROJECT_DIR$/src/ServiceProvider.php" />
         <option value="$PROJECT_DIR$/src/config.php" />
         <option value="$PROJECT_DIR$/src/Exceptions/ParameterillegalException.php" />
-        <option value="$PROJECT_DIR$/src/Exceptions/RequestErrorException.php" />
+        <option value="$PROJECT_DIR$/src/Core/AbstractAPI.php" />
         <option value="$PROJECT_DIR$/src/Exceptions/ApiClosedException.php" />
         <option value="$PROJECT_DIR$/src/Exceptions/AuthErrorException.php" />
+        <option value="$PROJECT_DIR$/src/Exceptions/ParameterIllegalException.php" />
+        <option value="$PROJECT_DIR$/src/Exceptions/RequestErrorException.php" />
         <option value="$PROJECT_DIR$/src/Exceptions/ResourceNotFoundException.php" />
-        <option value="$PROJECT_DIR$/src/Core/AbstractAPI.php" />
       </list>
     </option>
   </component>
@@ -283,7 +324,7 @@
       <option name="presentableId" value="Default" />
       <updated>1481598823124</updated>
       <workItem from="1481598824675" duration="3398000" />
-      <workItem from="1481852571227" duration="901000" />
+      <workItem from="1481852571227" duration="2307000" />
     </task>
     <task id="LOCAL-00001" summary="Add ignore">
       <created>1481600466864</created>
@@ -317,7 +358,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4299000" />
+    <option name="totallyTimeSpent" value="5705000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="825" extended-state="6" />
@@ -402,7 +443,7 @@
         <state relative-caret-position="165">
           <caret line="14" column="6" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="6" />
           <folding>
-            <element signature="e#39#75#0#PHP" expanded="true" />
+            <element signature="e#39#75#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -428,16 +469,8 @@
         <state relative-caret-position="165">
           <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="6" />
           <folding>
-            <element signature="e#39#75#0#PHP" expanded="true" />
+            <element signature="e#39#75#0#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/HttpException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -465,34 +498,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/ParameterIllegalException.php">
+    <entry file="file://$PROJECT_DIR$/vendor/psr/http-message/src/ResponseInterface.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state relative-caret-position="55">
+          <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/AuthErrorException.php">
+    <entry file="file://$PROJECT_DIR$/vendor/guzzlehttp/guzzle/src/Exception/RequestException.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state relative-caret-position="-2180">
+          <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/ResourceNotFoundException.php">
+    <entry file="file://$PROJECT_DIR$/vendor/guzzlehttp/guzzle/src/Exception/BadResponseException.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="8" lean-forward="false" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        <state relative-caret-position="90">
+          <caret line="6" column="46" lean-forward="true" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/AbstractAPI.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="122" column="29" lean-forward="false" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+          <folding>
+            <element signature="e#39#85#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Exceptions/ApiClosedException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <caret line="5" column="46" lean-forward="false" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/AuthErrorException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="46" lean-forward="false" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/HttpException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/ParameterIllegalException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -500,18 +567,16 @@
     <entry file="file://$PROJECT_DIR$/src/Exceptions/RequestErrorException.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <caret line="5" column="49" lean-forward="false" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Core/AbstractAPI.php">
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/ResourceNotFoundException.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="121" column="13" lean-forward="true" selection-start-line="121" selection-start-column="13" selection-end-line="121" selection-end-column="13" />
-          <folding>
-            <element signature="e#39#85#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" column="53" lean-forward="false" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>
