@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Stream;
 use Jhk\ApiRequests\Exceptions\HttpException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -258,7 +259,7 @@ class Http
             $body = $body->getBody();
         }
 
-        if (empty($body)) {
+        if (empty($body) || ($body instanceof Stream && !$body->getContents())) {
             return false;
         }
 
