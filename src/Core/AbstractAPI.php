@@ -5,7 +5,12 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Collection;
+use Jhk\ApiRequests\Exceptions\ApiClosedException;
+use Jhk\ApiRequests\Exceptions\AuthErrorException;
 use Jhk\ApiRequests\Exceptions\HttpException;
+use Jhk\ApiRequests\Exceptions\ParameterIllegalException;
+use Jhk\ApiRequests\Exceptions\RequestErrorException;
+use Jhk\ApiRequests\Exceptions\ResourceNotFoundException;
 use Psr\Http\Message\RequestInterface;
 use Jhk\KongAuth\Client;
 use Jhk\KongAuth\Token;
@@ -97,6 +102,24 @@ abstract class AbstractAPI
         } catch (BadResponseException $e) {
             $responseString = $e->getResponse()->getBody()->getContents();
             $response = json_decode($responseString);
+            $returnCode = isset($response->result_code) ? $response->result_code : 0;
+            $returnMessage = isset($response->message) ? $response->message : $responseString;
+            switch ($returnCode){
+                case 200000:
+                    throw new RequestErrorException($returnMessage,$returnCode);
+                    break;
+                case 200001:
+                    throw new ApiClosedException($returnMessage,$returnCode);
+                    break;
+                case 200002:
+                    throw new ResourceNotFoundException($returnMessage,$returnCode);
+                    break;
+                case 200003:
+                    throw new ParameterIllegalException($returnMessage,$returnCode);
+                    break;
+                case 200004:
+                    throw new AuthErrorException($returnMessage,$returnCode);
+            }
             throw new HttpException(isset($response->message) ? $response->message : $responseString, isset($response->result_code) ? $response->result_code : 0);
         } catch (\Exception $e) {
             throw new HttpException($e->getMessage(), $e->getCode());
