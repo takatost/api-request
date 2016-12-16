@@ -125,7 +125,7 @@ abstract class AbstractAPI
             throw new HttpException($e->getMessage(), $e->getCode());
         }
 
-        $contents = $this->checkAndThrow($contents);
+        $contents === false || $contents = $this->checkAndThrow($contents);
 
         return new Collection($contents);
     }
