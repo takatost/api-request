@@ -25,6 +25,13 @@ class Entity implements ArrayAccess
     protected $attributes = [];
 
     /**
+     * The model's relations.
+     *
+     * @var array
+     */
+    protected $relations = [];
+
+    /**
      * Create a new Eloquent model instance.
      *
      * @param  array  $attributes
@@ -45,6 +52,22 @@ class Entity implements ArrayAccess
     public function fill(array $attributes)
     {
         foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->relations)) {
+                $relationClass = $this->relations[$key];
+
+                // List
+                if (isset($value['data'])) {
+                    $list = [];
+                    foreach ($value['data'] as $item) {
+                        $list[] = new $relationClass($item);
+                    }
+
+                    $value = $list;
+                } else {
+                    $value = new $relationClass($item);
+                }
+            }
+
             $this->setAttribute($key, $value);
         }
 
@@ -97,29 +120,6 @@ class Entity implements ArrayAccess
         }
 
         return null;
-    }
-
-    /**
-     * Dynamically retrieve attributes on the model.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    public function get($key)
-    {
-        return $this->getAttribute($key);
-    }
-
-    /**
-     * Dynamically set attributes on the model.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @return mixed
-     */
-    public function set($key, $value)
-    {
-        return $this->setAttribute($key, $value);
     }
 
     /**

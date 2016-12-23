@@ -4,6 +4,7 @@ use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Uri;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Jhk\ApiRequests\Exceptions\ApiClosedException;
 use Jhk\ApiRequests\Exceptions\AuthErrorException;
@@ -25,6 +26,11 @@ abstract class AbstractAPI
      *
      */
     protected $http;
+
+    /**
+     * @var string
+     */
+    protected static $defaultEntity = null;
 
     const GET   = 'get';
     const POST  = 'post';
@@ -181,5 +187,42 @@ abstract class AbstractAPI
     protected function checkAndThrow(array $contents)
     {
         return $contents['response'];
+    }
+
+    /**
+     * @param Collection $response
+     * @return Collection|LengthAwarePaginator|Entity
+     * @author         JohnWang <takato@vip.qq.com>
+     */
+    protected function parseResponse($response)
+    {
+        if (!self::$defaultEntity) {
+            return $response;
+        }
+
+        if ($response->has('meta')) {
+            $list = $response->get('data');
+
+            foreach ($list as $key => $item) {
+                $list[$key] = new self::$defaultEntity($item);
+            }
+
+            return new LengthAwarePaginator(
+                $list,
+                $response->get('meta')['pagination']['total'],
+                $response->get('meta')['pagination']['per_page'],
+                $response->get('meta')['pagination']['current_page']
+            );
+        } else if ($response->count() === 1 && $response->has('data')) {
+            $list = $response->get('data');
+
+            foreach ($list as $key => $item) {
+                $list[$key] = new self::$defaultEntity($item);
+            }
+
+            return new Collection($list);
+        } else {
+            return new self::$defaultEntity($response->toArray());
+        }
     }
 }
