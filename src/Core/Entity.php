@@ -105,6 +105,29 @@ class Entity implements ArrayAccess
      * @param  string  $key
      * @return mixed
      */
+    public function get($key)
+    {
+        return $this->getAttribute($key);
+    }
+
+    /**
+     * Dynamically set attributes on the model.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return mixed
+     */
+    public function set($key, $value)
+    {
+        return $this->setAttribute($key, $value);
+    }
+
+    /**
+     * Dynamically retrieve attributes on the model.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
     public function __get($key)
     {
         return $this->getAttribute($key);
