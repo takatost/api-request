@@ -30,7 +30,7 @@ abstract class AbstractAPI
     /**
      * @var string
      */
-    protected static $defaultEntity = null;
+    protected $defaultEntity = null;
 
     const GET   = 'get';
     const POST  = 'post';
@@ -196,7 +196,8 @@ abstract class AbstractAPI
      */
     protected function parseResponse($response)
     {
-        if (!self::$defaultEntity) {
+        $defaultEntity = $this->defaultEntity;
+        if (!$defaultEntity) {
             return $response;
         }
 
@@ -204,7 +205,7 @@ abstract class AbstractAPI
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
-                $list[$key] = new self::$defaultEntity($item);
+                $list[$key] = new $defaultEntity($item);
             }
 
             return new LengthAwarePaginator(
@@ -217,12 +218,12 @@ abstract class AbstractAPI
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
-                $list[$key] = new self::$defaultEntity($item);
+                $list[$key] = new $defaultEntity($item);
             }
 
             return new Collection($list);
         } else {
-            return new self::$defaultEntity($response->toArray());
+            return new $defaultEntity($response->toArray());
         }
     }
 }
