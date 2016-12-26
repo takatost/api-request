@@ -191,6 +191,37 @@ class Entity implements ArrayAccess
     }
 
     /**
+     * Convert the model instance to JSON.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->jsonSerialize(), $options);
+    }
+
+    /**
+     * Convert the object into something JSON serializable.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
+     * Convert the model instance to an array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->attributes;
+    }
+
+    /**
      * Determine if an attribute or relation exists on the model.
      *
      * @param  string  $key
@@ -210,5 +241,15 @@ class Entity implements ArrayAccess
     public function __unset($key)
     {
         unset($this->attributes[$key], $this->relations[$key]);
+    }
+
+    /**
+     * Convert the model to its string representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
     }
 }
