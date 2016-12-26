@@ -64,7 +64,7 @@ class Entity implements ArrayAccess
 
                     $value = $list;
                 } else {
-                    $value = new $relationClass($item);
+                    $value = new $relationClass($value);
                 }
             }
 
@@ -251,5 +251,14 @@ class Entity implements ArrayAccess
     public function __toString()
     {
         return $this->toJson();
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return $this->getAttribute($key);
     }
 }
