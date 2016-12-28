@@ -259,6 +259,7 @@ class Entity implements ArrayAccess
      */
     public function get($key)
     {
+
         return $this->getAttribute($key);
     }
 }
