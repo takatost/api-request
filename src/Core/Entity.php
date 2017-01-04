@@ -9,13 +9,14 @@
 namespace Jhk\ApiRequests\Core;
 
 use ArrayAccess;
+use Illuminate\Contracts\Support\Jsonable;
 
 /**
  * Class Entity
  * @author  JohnWang <takato@vip.qq.com>
  * @package Jhk\ApiRequests\Core
  */
-class Entity implements ArrayAccess
+class Entity implements ArrayAccess,Jsonable
 {
     /**
      * The model's attributes.
@@ -198,7 +199,7 @@ class Entity implements ArrayAccess
      */
     public function toJson($options = 0)
     {
-        return json_encode($this->jsonSerialize(), $options);
+        return json_encode($this->toArray(), $options);
     }
 
     /**
