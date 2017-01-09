@@ -191,12 +191,13 @@ abstract class AbstractAPI
 
     /**
      * @param Collection $response
+     * @param $defaultEntity
      * @return Collection|LengthAwarePaginator|Entity
      * @author         JohnWang <takato@vip.qq.com>
      */
-    protected function parseResponse($response)
+    protected function parseResponse($response, $defaultEntity = null)
     {
-        $defaultEntity = $this->defaultEntity;
+        $defaultEntity = $this->defaultEntity ?: $defaultEntity;
         if (!$defaultEntity) {
             return $response;
         }
