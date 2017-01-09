@@ -202,6 +202,7 @@ abstract class AbstractAPI
         }
 
         if ($response->has('meta')) {
+            //列表分页
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
@@ -215,6 +216,7 @@ abstract class AbstractAPI
                 $response->get('meta')['pagination']['current_page']
             );
         } else if ($response->count() === 1 && $response->has('data')) {
+            //单个对象
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
@@ -222,7 +224,15 @@ abstract class AbstractAPI
             }
 
             return new Collection($list);
-        } else {
+        }elseif(is_array($response) || $response instanceof Collection){
+            //返回 collection 或者 单数数组
+            $collect = collect();
+            foreach ($response as $item){
+                $collect->push(new $defaultEntity($item));
+            }
+            return $collect;
+        }
+        else {
             return new $defaultEntity($response->toArray());
         }
     }
