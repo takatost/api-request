@@ -201,7 +201,6 @@ abstract class AbstractAPI
         if (!$defaultEntity) {
             return $response;
         }
-
         if ($response->has('meta')) {
             //列表分页
             $list = $response->get('data');
@@ -225,15 +224,32 @@ abstract class AbstractAPI
             }
 
             return new Collection($list);
-        }elseif(is_array($response) || $response instanceof Collection){
-            //返回 collection 或者 单数数组
+        }elseif($response instanceof Collection){
+            //用于处理自定义的返回格式，例如
+            /* collect([
+                [
+                    'id'=>1,
+                    'name'=>2
+                ],
+                [
+                    'id'=>1,
+                    'name'=>2
+                ],
+            ]);*/
             $collect = collect();
             foreach ($response as $item){
+                if(!is_array($item)){
+                    //用于处理一维数组
+                /* collect([
+                        'id'=>1,
+                        'name'=>2
+                    ]);*/
+                    return new $defaultEntity($response->toArray());
+                }
                 $collect->push(new $defaultEntity($item));
             }
             return $collect;
-        }
-        else {
+        } else {
             return new $defaultEntity($response->toArray());
         }
     }
