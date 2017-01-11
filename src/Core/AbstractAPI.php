@@ -189,20 +189,14 @@ abstract class AbstractAPI
         return $contents['response'];
     }
 
-    /**
-     * @param Collection $response
-     * @param $defaultEntity
-     * @return Collection|LengthAwarePaginator|Entity
-     * @author         JohnWang <takato@vip.qq.com>
-     */
     protected function parseResponse($response, $defaultEntity = null)
     {
         $defaultEntity = $this->defaultEntity ?: $defaultEntity;
         if (!$defaultEntity) {
             return $response;
         }
+
         if ($response->has('meta')) {
-            //列表分页
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
@@ -216,7 +210,6 @@ abstract class AbstractAPI
                 $response->get('meta')['pagination']['current_page']
             );
         } else if ($response->count() === 1 && $response->has('data')) {
-            //单个对象
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
@@ -224,31 +217,6 @@ abstract class AbstractAPI
             }
 
             return new Collection($list);
-        }elseif($response instanceof Collection){
-            //用于处理自定义的返回格式，例如
-            /* collect([
-                [
-                    'id'=>1,
-                    'name'=>2
-                ],
-                [
-                    'id'=>1,
-                    'name'=>2
-                ],
-            ]);*/
-            $collect = collect();
-            foreach ($response as $item){
-                if(!is_array($item)){
-                    //用于处理一维数组
-                /* collect([
-                        'id'=>1,
-                        'name'=>2
-                    ]);*/
-                    return new $defaultEntity($response->toArray());
-                }
-                $collect->push(new $defaultEntity($item));
-            }
-            return $collect;
         } else {
             return new $defaultEntity($response->toArray());
         }
