@@ -17,6 +17,9 @@ trait L5RepositoryAdvanceQueryTrait
     public function implodeInputQuery($input, array $searchEqualParams = [], array $searchLikeParams = [])
     {
         $requestParams = \Request::all();
+
+        $requestParams = array_merge($requestParams, $input);
+
         $equalMap = [];
         $likeMap = [];
         foreach ($requestParams as $requestParam => $value) {
@@ -49,17 +52,10 @@ trait L5RepositoryAdvanceQueryTrait
             $searchFieldsString = trim($searchFieldsString, ';');
         }
 
-        if ($searchString) {
-            $input = array_merge($input, [
-                'search' => $searchString,
-            ]);
-        }
-
-        if ($searchFieldsString) {
-            $input = array_merge($input, [
-                'searchFields' => $searchFieldsString
-            ]);
-        }
+        $input = array_merge($input, [
+            'search'       => $searchString,
+            'searchFields' => $searchFieldsString
+        ]);
 
         return $input;
     }
