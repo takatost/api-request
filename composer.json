@@ -8,8 +8,8 @@
     "require": {
       "php": ">=5.6.4",
       "guzzlehttp/guzzle": "~5.0|~6.0",
-      "illuminate/support": "5.3.*",
-      "illuminate/pagination": "5.3.*",
+      "illuminate/support": ">=5.2",
+      "illuminate/pagination": ">=5.2",
       "jhk/kong-auth":"~1.0.0"
     },
     "license": "MIT",
