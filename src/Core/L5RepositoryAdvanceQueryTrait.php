@@ -14,7 +14,7 @@ trait L5RepositoryAdvanceQueryTrait
      * @return array
      * @author: Zhengqian.zhu <zhuzhengqian@vchangyi.com>
      */
-    public function implodeInputQuery($input, array $searchEqualParams = [], array $searchLikeParams = [])
+    public function implodeInputQuery(&$input, array $searchEqualParams = [], array $searchLikeParams = [])
     {
         $requestParams = \Request::all();
 
