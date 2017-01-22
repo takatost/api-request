@@ -14,12 +14,9 @@ trait L5RepositoryAdvanceQueryTrait
      * @return array
      * @author: Zhengqian.zhu <zhuzhengqian@vchangyi.com>
      */
-    public function implodeInputQuery(&$input, array $searchEqualParams = [], array $searchLikeParams = [])
+    public function implodeInputQuery($input, array $searchEqualParams = [], array $searchLikeParams = [])
     {
         $requestParams = \Request::all();
-
-        $requestParams = array_merge($requestParams, $input);
-
         $equalMap = [];
         $likeMap = [];
         foreach ($requestParams as $requestParam => $value) {
@@ -48,14 +45,24 @@ trait L5RepositoryAdvanceQueryTrait
                     unset($input[$k]);
                 }
             }
-            $searchString = trim($searchString, ';');
             $searchFieldsString = trim($searchFieldsString, ';');
         }
+        if (isset($input['ep_key']) && $input['ep_key']) {
+            $searchString .= ";ep_key:".$input['ep_key'];
+        }
+        $searchString = trim($searchString, ';');
+        
+        if ($searchString) {
+            $input = array_merge($input, [
+                'search' => $searchString,
+            ]);
+        }
 
-        $input = array_merge($input, [
-            'search'       => $searchString,
-            'searchFields' => $searchFieldsString
-        ]);
+        if ($searchFieldsString) {
+            $input = array_merge($input, [
+                'searchFields' => $searchFieldsString
+            ]);
+        }
 
         return $input;
     }
