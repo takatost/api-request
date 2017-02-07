@@ -16,7 +16,14 @@ trait L5RepositoryAdvanceQueryTrait
      */
     public function implodeInputQuery(&$input, array $searchEqualParams = [], array $searchLikeParams = [])
     {
-        $requestParams = \Request::all();
+        $requestParams = app('request')->all();
+        if(app('request')->method() === 'GET'){
+            foreach ($requestParams as $k=>$v){
+                if(!$v){
+                    unset($requestParams[$k]);
+                }
+            }
+        }
 
         $requestParams = array_merge($requestParams, $input);
 
