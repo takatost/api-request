@@ -36,6 +36,7 @@ abstract class AbstractAPI
     const POST  = 'post';
     const PATCH = 'patch';
     const PUT   = 'put';
+    const DELETE = 'delete';
     const JSON  = 'json';
 
     /**
