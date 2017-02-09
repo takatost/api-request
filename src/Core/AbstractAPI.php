@@ -192,7 +192,7 @@ abstract class AbstractAPI
 
     protected function parseResponse($response, $defaultEntity = null)
     {
-        $defaultEntity = $this->defaultEntity ?: $defaultEntity;
+        $defaultEntity = $defaultEntity ? : $this->defaultEntity;
         if (!$defaultEntity) {
             return $response;
         }
