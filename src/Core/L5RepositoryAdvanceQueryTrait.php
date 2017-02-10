@@ -61,7 +61,7 @@ trait L5RepositoryAdvanceQueryTrait
 
         $input = array_merge($input, [
             'search'       => $searchString,
-            'searchFields' => $searchFieldsString
+//            'searchFields' => $searchFieldsString
         ]);
 
         return $input;
