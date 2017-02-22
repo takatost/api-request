@@ -59,11 +59,12 @@ trait L5RepositoryAdvanceQueryTrait
             $searchFieldsString = trim($searchFieldsString, ';');
         }
 
-        $input = array_merge($input, [
-            'search'       => $searchString,
-//            'searchFields' => $searchFieldsString
-        ]);
-
+        if($searchString){
+            $input = array_merge($input, [
+                'search'       => $searchString,
+    //            'searchFields' => $searchFieldsString
+            ]);
+        }
         return $input;
     }
 }
