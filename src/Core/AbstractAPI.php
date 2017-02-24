@@ -4,6 +4,7 @@ use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Uri;
+use Illuminate\Container\Container;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Jhk\ApiRequests\Exceptions\ApiClosedException;
@@ -72,6 +73,7 @@ abstract class AbstractAPI
 
         if (count($this->http->getMiddlewares()) === 0) {
             $this->registerHttpMiddlewares();
+            $this->registerCustomMiddlewares();
         }
 
         return $this->http;
@@ -146,6 +148,23 @@ abstract class AbstractAPI
         if (env('ENABLE_API_GATEWAY_AUTH', false) == true) {
             $this->http->addMiddleware($this->apiGatewaySignatureMiddleware());
         }
+    }
+
+    /**
+     * Register Custom Moddlewares
+     */
+    protected function registerCustomMiddlewares()
+    {
+        $middlewares = config('api_requests.middlewares');
+
+        if (!$middlewares || !is_array($middlewares)) {
+            return;
+        }
+
+        foreach ($middlewares as $middleware) {
+            $this->http->addMiddleware($middleware::register(Container::getInstance()));
+        }
+
     }
 
     /**
