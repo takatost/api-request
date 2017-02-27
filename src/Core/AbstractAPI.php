@@ -59,8 +59,8 @@ abstract class AbstractAPI
     public function getApiGatewayConfig()
     {
         return [
-            'app_id'     => config('api_request.app_id'),
-            'app_secret' => config('api_request.app_secret')
+            'app_id'     => config('api_requests.app_id'),
+            'app_secret' => config('api_requests.app_secret')
         ]
     };
 
