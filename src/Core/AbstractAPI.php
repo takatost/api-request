@@ -50,16 +50,19 @@ abstract class AbstractAPI
      * @return string
      * @author         JohnWang <takato@vip.qq.com>
      */
-    public function getApiGatewayPrefix()
-    {
-        return config('micro_service.prefix');
-    }
+    public abstract function getApiGatewayPrefix();
 
     /**
      * @return array
      * @author         JohnWang <takato@vip.qq.com>
      */
-    public abstract function getApiGatewayConfig();
+    public function getApiGatewayConfig()
+    {
+        return [
+            'app_id'     => config('api_request.app_id'),
+            'app_secret' => config('api_request.app_secret')
+        ]
+    };
 
     /**
      * Return the http instance.
