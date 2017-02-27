@@ -61,8 +61,8 @@ abstract class AbstractAPI
         return [
             'app_id'     => config('api_requests.app_id'),
             'app_secret' => config('api_requests.app_secret')
-        ]
-    };
+        ];
+    }
 
     /**
      * Return the http instance.
