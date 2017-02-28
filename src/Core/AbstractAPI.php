@@ -148,7 +148,7 @@ abstract class AbstractAPI
     protected function registerHttpMiddlewares()
     {
         // signature API GATEWAY
-        if (env('ENABLE_API_GATEWAY_AUTH', false) == true) {
+        if (env('ENABLE_API_GATEWAY_AUTH', true) == true) {
             $this->http->addMiddleware($this->apiGatewaySignatureMiddleware());
         }
     }
