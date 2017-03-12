@@ -119,16 +119,12 @@ abstract class AbstractAPI
             switch ($returnCode){
                 case 200000:
                     throw new RequestErrorException($returnMessage,$returnCode);
-                    break;
                 case 200001:
                     throw new ApiClosedException($returnMessage,$returnCode);
-                    break;
                 case 200002:
                     throw new ResourceNotFoundException($returnMessage,$returnCode);
-                    break;
                 case 200003:
                     throw new ParameterIllegalException($returnMessage,$returnCode);
-                    break;
                 case 200004:
                     throw new AuthErrorException($returnMessage,$returnCode);
             }
