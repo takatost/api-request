@@ -53,7 +53,7 @@ class Entity implements ArrayAccess,Jsonable
     public function fill(array $attributes)
     {
         foreach ($attributes as $key => $value) {
-            if (array_key_exists($key, $this->relations)) {
+            if ($value !== null && array_key_exists($key, $this->relations)) {
                 $relationClass = $this->relations[$key];
 
                 // List
