@@ -9,14 +9,16 @@
 namespace Jhk\ApiRequests\Core;
 
 use ArrayAccess;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use JsonSerializable;
 
 /**
  * Class Entity
  * @author  JohnWang <takato@vip.qq.com>
  * @package Jhk\ApiRequests\Core
  */
-class Entity implements ArrayAccess,Jsonable
+class Entity implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
 {
     /**
      * The model's attributes.
