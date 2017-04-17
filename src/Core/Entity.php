@@ -256,6 +256,11 @@ class Entity implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
         return $this->toJson();
     }
 
+    public function has($key)
+    {
+        return isset($this->$key);
+    }
+
     /**
      * @param $key
      * @return mixed
