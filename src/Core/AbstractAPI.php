@@ -128,7 +128,7 @@ abstract class AbstractAPI
                 case 200004:
                     throw new AuthErrorException($returnMessage,$returnCode);
             }
-            throw new HttpException(isset($response->message) ? $response->message : $responseString, isset($response->result_code) ? $response->result_code : 0);
+            throw new HttpException(isset($response->message) ? $response->message : $responseString, isset($response->result_code) ? $response->result_code : 0, $response);
         } catch (\Exception $e) {
             throw new HttpException($e->getMessage(), $e->getCode());
         }
