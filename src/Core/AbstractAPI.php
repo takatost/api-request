@@ -105,6 +105,17 @@ abstract class AbstractAPI
      */
     public function parseJSON($method, array $args)
     {
+        $headers = [];
+        if(isset($args[1])){
+            $input = (array)$args[1];
+            if(array_key_exists('headers',$input)){
+                $headers = (array)$input['headers'];
+            }
+        }
+        Http::setDefaultOptions([
+            'headers'=>$headers
+        ]);
+
         $http = $this->getHttp();
 
         $args[0] = $this->getApiPrefix() . $args[0];
