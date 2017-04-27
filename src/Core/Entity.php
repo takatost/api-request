@@ -11,6 +11,8 @@ namespace Jhk\ApiRequests\Core;
 use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use JsonSerializable;
 
 /**
@@ -269,5 +271,15 @@ class Entity implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     {
 
         return $this->getAttribute($key);
+    }
+
+    public function only($keys)
+    {
+        if (is_null($keys)) {
+            return new static($this->attributes);
+        }
+        $keys = is_array($keys) ? $keys : func_get_args();
+
+        return new static(Arr::only($this->attributes, $keys));
     }
 }
