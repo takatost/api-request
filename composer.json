@@ -30,7 +30,7 @@
     "repositories": [
       {
         "type": "composer",
-        "url": "http://packagist.dev.vstore.vchangyi.com/repo/private/"
+        "url": "http://packagist.dev.juhaoke.com/repo/private/"
       },
       {
         "type": "composer",
