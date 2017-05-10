@@ -282,4 +282,15 @@ class Entity implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
 
         return new static(Arr::only($this->attributes, $keys));
     }
+
+    public function put($key,$value)
+    {
+        if (is_null($key)) {
+            $this->attributes[] = $value;
+        } else {
+            $this->attributes[$key] = $value;
+        }
+
+        return $this;
+    }
 }
