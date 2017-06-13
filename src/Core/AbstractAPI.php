@@ -3,6 +3,7 @@
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Container\Container;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -118,13 +119,23 @@ abstract class AbstractAPI
 
         $http = $this->getHttp();
 
-        $args[0] = $this->getApiPrefix() . $args[0];
+        if(!starts_with($args[0],'http')){
+            $args[0] = $this->getApiPrefix() . $args[0];
+        }
 
         try {
             $contents = $http->parseJSON(call_user_func_array([$http, $method], $args));
-        } catch (BadResponseException $e) {
+        } catch (TransferException $e) {
             $responseString = $e->getResponse()->getBody()->getContents();
             $response = json_decode($responseString);
+            if($e instanceof ClientException && $response && $response->error && $response->error === 'invalid_token'){
+                //此种情况是 Kong Token 过期，则尝试重新获取
+                $apiGatewayConfig = $this->getApiGatewayConfig();
+                $client = new Client($apiGatewayConfig['app_id'], $apiGatewayConfig['app_secret']);
+                $token = new Token($client);
+                $token->refreshToken($this->getApiGatewayPrefix());
+                return $this->parseJSON($method,$args);
+            }
             $returnCode = isset($response->result_code) ? $response->result_code : 0;
             $returnMessage = isset($response->message) ? $response->message : $responseString;
             switch ($returnCode){
@@ -138,8 +149,10 @@ abstract class AbstractAPI
                     throw new ParameterIllegalException($returnMessage,$returnCode);
                 case 200004:
                     throw new AuthErrorException($returnMessage,$returnCode);
+                default:
+                    throw new HttpException(isset($response->message) ? $response->message : $responseString, isset($response->result_code) ? $response->result_code : 0, $response);
             }
-            throw new HttpException(isset($response->message) ? $response->message : $responseString, isset($response->result_code) ? $response->result_code : 0, $response);
+
         } catch (\Exception $e) {
             throw new HttpException($e->getMessage(), $e->getCode());
         }
@@ -193,6 +206,7 @@ abstract class AbstractAPI
                 $params = [
                     'access_token' => $token->getToken($this->getApiGatewayPrefix())
                 ];
+
                 // 排序
                 ksort($params, SORT_STRING);
 
