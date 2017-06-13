@@ -128,7 +128,7 @@ abstract class AbstractAPI
         } catch (TransferException $e) {
             $responseString = $e->getResponse()->getBody()->getContents();
             $response = json_decode($responseString);
-            if($e instanceof ClientException && $response && $response->error && $response->error === 'invalid_token'){
+            if($e instanceof ClientException && $response && isset($response->error) && $response->error === 'invalid_token'){
                 //此种情况是 Kong Token 过期，则尝试重新获取
                 $apiGatewayConfig = $this->getApiGatewayConfig();
                 $client = new Client($apiGatewayConfig['app_id'], $apiGatewayConfig['app_secret']);
