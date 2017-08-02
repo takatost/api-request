@@ -37,6 +37,13 @@ class Entity implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
     protected $relations = [];
 
     /**
+     * The model's headers.
+     *
+     * @var array
+     */
+    protected $headers = [];
+
+    /**
      * Create a new Eloquent model instance.
      *
      * @param  array  $attributes
@@ -125,6 +132,22 @@ class Entity implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
         }
 
         return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
+     * @param array $headers
+     */
+    public function setHeaders($headers)
+    {
+        $this->headers = $headers;
     }
 
     /**

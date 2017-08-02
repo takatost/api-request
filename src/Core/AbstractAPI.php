@@ -1,12 +1,9 @@
 <?php namespace Jhk\ApiRequests\Core;
 
-use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Container\Container;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Jhk\ApiRequests\Exceptions\ApiClosedException;
 use Jhk\ApiRequests\Exceptions\AuthErrorException;
@@ -124,7 +121,9 @@ abstract class AbstractAPI
         }
 
         try {
-            $contents = $http->parseJSON(call_user_func_array([$http, $method], $args));
+            $response = call_user_func_array([$http, $method], $args);
+            $headers = $response->getHeaders();
+            $contents = $http->parseJSON($response);
         } catch (TransferException $e) {
             $responseString = $e->getResponse()->getBody()->getContents();
             $response = json_decode($responseString);
@@ -158,8 +157,16 @@ abstract class AbstractAPI
         }
 
         $contents === false || $contents = $this->checkAndThrow($contents);
+        $contents = new Collection($contents);
 
-        return new Collection($contents);
+        $headerList = [];
+        foreach ($headers as $key => $header) {
+            $headerList[$key] = array_first($header);
+        }
+
+        $contents->put('_headers', $headerList);
+
+        return $contents;
     }
 
     /**
@@ -247,22 +254,38 @@ abstract class AbstractAPI
                 $list[$key] = new $defaultEntity($item);
             }
 
-            return new LengthAwarePaginator(
+            $result = new ResponseLengthAwarePaginator(
                 $list,
                 $response->get('meta')['pagination']['total'],
                 $response->get('meta')['pagination']['per_page'],
                 $response->get('meta')['pagination']['current_page']
             );
-        } else if ($response->count() === 1 && $response->has('data')) {
+
+            if ($response->has('_headers')) {
+                $result->setHeaders($response->get('_headers'));
+            }
+        } else if (($response->has('data') && !$response->has('_headers') && $response->count() === 1)
+    || ($response->has('data') && $response->has('_headers') && $response->count() === 2)) {
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
                 $list[$key] = new $defaultEntity($item);
             }
 
-            return new Collection($list);
+            $result = new ResponseCollection($list);
+
+            if ($response->has('_headers')) {
+                $result->setHeaders($response->get('_headers'));
+            }
         } else {
-            return new $defaultEntity($response->toArray());
+            $result = new $defaultEntity($response->toArray());
+
+            if ($response->has('_headers')) {
+                $result->setHeaders($response->get('_headers'));
+                $result->offsetUnset('_headers');
+            }
         }
+
+        return $result;
     }
 }
