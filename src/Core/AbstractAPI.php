@@ -157,14 +157,14 @@ abstract class AbstractAPI
         }
 
         $contents === false || $contents = $this->checkAndThrow($contents);
-        $contents = new Collection($contents);
+        $contents = new ResponseCollection($contents);
 
         $headerList = [];
         foreach ($headers as $key => $header) {
             $headerList[$key] = array_first($header);
         }
 
-        $contents->put('_headers', $headerList);
+        $contents->setHeaders($headerList);
 
         return $contents;
     }
@@ -261,11 +261,8 @@ abstract class AbstractAPI
                 $response->get('meta')['pagination']['current_page']
             );
 
-            if ($response->has('_headers')) {
-                $result->setHeaders($response->get('_headers'));
-            }
-        } else if (($response->has('data') && !$response->has('_headers') && $response->count() === 1)
-    || ($response->has('data') && $response->has('_headers') && $response->count() === 2)) {
+            $result->setHeaders($response->getHeaders());
+        } else if ($response->has('data') && $response->count() === 1) {
             $list = $response->get('data');
 
             foreach ($list as $key => $item) {
@@ -274,16 +271,11 @@ abstract class AbstractAPI
 
             $result = new ResponseCollection($list);
 
-            if ($response->has('_headers')) {
-                $result->setHeaders($response->get('_headers'));
-            }
+            $result->setHeaders($response->getHeaders());
         } else {
             $result = new $defaultEntity($response->toArray());
 
-            if ($response->has('_headers')) {
-                $result->setHeaders($response->get('_headers'));
-                $result->offsetUnset('_headers');
-            }
+            $result->setHeaders($response->getHeaders());
         }
 
         return $result;
