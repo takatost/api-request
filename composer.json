@@ -1,16 +1,14 @@
 {
-    "name": "jhk/api-requests",
-    "description": "聚好客 API 请求库",
+    "name": "takatost/api-requests",
+    "description": "简易 API 请求库",
     "keywords": [
-      "jhk",
       "api-requests"
     ],
     "require": {
       "php": ">=5.6.4",
       "guzzlehttp/guzzle": "~5.0|~6.0",
       "illuminate/support": ">=5.2",
-      "illuminate/pagination": ">=5.2",
-      "jhk/kong-auth":"~1.0"
+      "illuminate/pagination": ">=5.2"
     },
     "license": "MIT",
     "authors": [
@@ -28,10 +26,6 @@
       "secure-http": false
     },
     "repositories": [
-      {
-        "type": "composer",
-        "url": "http://packagist.dev.juhaoke.com/repo/private/"
-      },
       {
         "type": "composer",
         "url": "https://packagist.phpcomposer.com"

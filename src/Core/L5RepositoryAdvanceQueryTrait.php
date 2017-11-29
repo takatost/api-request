@@ -1,4 +1,4 @@
-<?php namespace Jhk\ApiRequests\Core;
+<?php namespace Takatost\ApiRequests\Core;
 /**
  * Created by PhpStorm.
  * DateTime: 2017/1/20 16:48

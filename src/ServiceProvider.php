@@ -1,4 +1,4 @@
-<?php namespace Jhk\ApiRequests;
+<?php namespace Takatost\ApiRequests;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 

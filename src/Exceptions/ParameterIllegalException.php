@@ -1,4 +1,4 @@
-<?php namespace Jhk\ApiRequests\Exceptions;
+<?php namespace Takatost\ApiRequests\Exceptions;
 /**
  * 参数不合法
  * Class HttpException.

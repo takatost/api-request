@@ -1,9 +1,9 @@
-<?php namespace Jhk\ApiRequests\Core;
+<?php namespace Takatost\ApiRequests\Core;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Stream;
-use Jhk\ApiRequests\Exceptions\HttpException;
+use Takatost\ApiRequests\Exceptions\HttpException;
 use Psr\Http\Message\ResponseInterface;
 
 /**

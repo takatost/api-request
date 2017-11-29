@@ -6,7 +6,7 @@
  * Time: 11:31
  */
 
-namespace Jhk\ApiRequests\Core;
+namespace Takatost\ApiRequests\Core;
 
 use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;

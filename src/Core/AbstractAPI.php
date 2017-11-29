@@ -1,19 +1,17 @@
-<?php namespace Jhk\ApiRequests\Core;
+<?php namespace Takatost\ApiRequests\Core;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
-use Jhk\ApiRequests\Exceptions\ApiClosedException;
-use Jhk\ApiRequests\Exceptions\AuthErrorException;
-use Jhk\ApiRequests\Exceptions\HttpException;
-use Jhk\ApiRequests\Exceptions\ParameterIllegalException;
-use Jhk\ApiRequests\Exceptions\RequestErrorException;
-use Jhk\ApiRequests\Exceptions\ResourceNotFoundException;
+use Takatost\ApiRequests\Exceptions\ApiClosedException;
+use Takatost\ApiRequests\Exceptions\AuthErrorException;
+use Takatost\ApiRequests\Exceptions\HttpException;
+use Takatost\ApiRequests\Exceptions\ParameterIllegalException;
+use Takatost\ApiRequests\Exceptions\RequestErrorException;
+use Takatost\ApiRequests\Exceptions\ResourceNotFoundException;
 use Psr\Http\Message\RequestInterface;
-use Jhk\KongAuth\Client;
-use Jhk\KongAuth\Token;
 
 /**
  * Class AbstractAPI.
@@ -51,18 +49,6 @@ abstract class AbstractAPI
     public abstract function getApiGatewayPrefix();
 
     /**
-     * @return array
-     * @author         JohnWang <takato@vip.qq.com>
-     */
-    public function getApiGatewayConfig()
-    {
-        return [
-            'app_id'     => config('api_requests.app_id'),
-            'app_secret' => config('api_requests.app_secret')
-        ];
-    }
-
-    /**
      * Return the http instance.
      *
      */
@@ -73,7 +59,6 @@ abstract class AbstractAPI
         }
 
         if (count($this->http->getMiddlewares()) === 0) {
-            $this->registerHttpMiddlewares();
             $this->registerCustomMiddlewares();
         }
 
@@ -83,7 +68,7 @@ abstract class AbstractAPI
     /**
      * Set the http instance.
      *
-     * @param \Jhk\ApiRequests\Core\Http $http
+     * @param \Takatost\ApiRequests\Core\Http $http
      * @return $this
      */
     public function setHttp(Http $http)
@@ -127,14 +112,6 @@ abstract class AbstractAPI
         } catch (TransferException $e) {
             $responseString = $e->getResponse()->getBody()->getContents();
             $response = json_decode($responseString);
-            if($e instanceof ClientException && $response && isset($response->error) && $response->error === 'invalid_token'){
-                //此种情况是 Kong Token 过期，则尝试重新获取
-                $apiGatewayConfig = $this->getApiGatewayConfig();
-                $client = new Client($apiGatewayConfig['app_id'], $apiGatewayConfig['app_secret']);
-                $token = new Token($client);
-                $token->refreshToken($this->getApiGatewayPrefix());
-                return $this->parseJSON($method,$args);
-            }
             $returnCode = isset($response->result_code) ? $response->result_code : 0;
             $returnMessage = isset($response->message) ? $response->message : $responseString;
             switch ($returnCode){
@@ -170,17 +147,6 @@ abstract class AbstractAPI
     }
 
     /**
-     * Register Guzzle middlewares.
-     */
-    protected function registerHttpMiddlewares()
-    {
-        // signature API GATEWAY
-        if (env('ENABLE_API_GATEWAY_AUTH', true) == true) {
-            $this->http->addMiddleware($this->apiGatewaySignatureMiddleware());
-        }
-    }
-
-    /**
      * Register Custom Moddlewares
      */
     protected function registerCustomMiddlewares()
@@ -198,42 +164,10 @@ abstract class AbstractAPI
     }
 
     /**
-     * Attache Signature to request query.
-     *
-     * @return \Closure
-     */
-    protected function apiGatewaySignatureMiddleware()
-    {
-        return function (callable $handler) {
-            return function (RequestInterface $request, array $options) use ($handler) {
-                $uri = $request->getUri();
-                $apiGatewayConfig = $this->getApiGatewayConfig();
-                $client = new Client($apiGatewayConfig['app_id'], $apiGatewayConfig['app_secret']);
-                $token = new Token($client);
-                $params = [
-                    'access_token' => $token->getToken($this->getApiGatewayPrefix())
-                ];
-
-                // 排序
-                ksort($params, SORT_STRING);
-
-                // 生成校验签名
-                foreach ($params as $key => $value) {
-                    $uri = Uri::withQueryValue($uri, $key, $value);
-                }
-
-                $request = $request->withUri($uri);
-
-                return $handler($request, $options);
-            };
-        };
-    }
-
-    /**
      * Check the array data errors, and Throw exception when the contents contains error.
      *
      * @param array $contents
-     * @throws \Jhk\Document\Exceptions\HttpException
+     * @throws \Takatost\ApiRequests\Exceptions\HttpException
      */
     protected function checkAndThrow(array $contents)
     {

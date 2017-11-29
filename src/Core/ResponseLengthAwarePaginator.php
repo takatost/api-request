@@ -6,7 +6,7 @@
  * Time: 10:41
  */
 
-namespace Jhk\ApiRequests\Core;
+namespace Takatost\ApiRequests\Core;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
