@@ -9,7 +9,7 @@
 ```json
 {
     "require": {
-		"jhk/api-requests":"~1.0.0"
+		"takatost/api-requests":"~1.0.0"
     }
 }
 ```
