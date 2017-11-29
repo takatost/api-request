@@ -14,7 +14,7 @@
     "authors": [
         {
             "name": "JohnWang",
-            "email": "wangjiajun@vchangyi.com"
+            "email": "takatost@gmail.com"
         }
     ],
     "autoload": {
@@ -24,14 +24,5 @@
     "config": {
       "preferred-install": "dist",
       "secure-http": false
-    },
-    "repositories": [
-      {
-        "type": "composer",
-        "url": "https://packagist.phpcomposer.com"
-      },
-      {
-        "packagist": false
-      }
-    ]
+    }
 }
