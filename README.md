@@ -1,6 +1,6 @@
 # API 请求库#
 
->author JohnWang <wangjiajun@vchangyi.com>
+>author JohnWang
 
 ### 配置 ### 
 
